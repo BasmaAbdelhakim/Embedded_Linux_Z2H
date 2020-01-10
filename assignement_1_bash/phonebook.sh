@@ -1,23 +1,27 @@
- #! /bin/bash 
+#! /bin/bash 
 
 function insert {
  read -p "Enter the contact name: " name
+ name="${name}."
  #chech if the contact exists already
  result=$(grep -w "${name}" database.text)
- if [[ ! -z ${result} ]] 
-   then 
+ while [[ ! -z ${result} && $name = $result ]] 
+   do
      read -p "This name already exists.Enter a nother name: " name
- elif [ name = ' ' ]
-    then
+     name="${name}."
+     result=$(grep -w "${name}" database.text)
+   done
+ while [ name = ' ' ]
+    do
      read -p "Please enter a  valid name , Do not start with space : " name
- fi
- read -p "Enter the contact number: " number
+    done
 
+ read -p "Enter the contact number: " number
  # check if the number consists of only digits
- if [[ ! $number =~ ^[0-9]+$ ]]
-   then
+ while [[ ! $number =~ ^[0-9]+$ ]]
+   do
      read -p "please enter a correct number: " number
- fi
+ done
  echo $name $number >> database.text 
 }
 
@@ -39,6 +43,7 @@ function search {
      echo "The file is already empty"
  else
   read -p "Enter your contact name: " name 
+  name="${name}."
   result=$(grep "${name}" database.text)
   if [[ -z $result ]]
     then
@@ -65,8 +70,10 @@ function delete {
    then 
      echo "The file is already empty"
  else
-   read -p "Enter your contact name: " name 
+   read -p "Enter your contact name: " name
+   name="${name}."
    result=$(grep -w "${name}" database.text)
+   echo $result
    lines=$(grep -r -w "${name}" database.text | wc -l)
    if [[ -z ${result} ]]
     then
@@ -80,8 +87,8 @@ function delete {
     while [ $lines -gt 1 ]
      do
      read -p "There is more one that contact with that name,please specify the correct name : " name 
-     result=$(grep "$name" database.text) 
-     lines=$(grep -r "${name}" database.text | wc -l) 
+     result=$(grep -w "${name}" database.text) 
+     lines=$(grep -r -w "${name}" database.text | wc -l) 
     done 
       echo "The contact is deleted"
       sed -i "/$result/ d" database.text  
