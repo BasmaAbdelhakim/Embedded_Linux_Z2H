@@ -3,8 +3,8 @@
 function insert {
  read -p "Enter the contact name: " name
  #chech if the contact exists already
- result=$(grep "${name}" database.text)
- if [[ ! -z ${result}  && $name = $result ]] 
+ result=$(grep -w "${name}" database.text)
+ if [[ ! -z ${result} ]] 
    then 
      read -p "This name already exists.Enter a nother name: " name
  elif [ name = ' ' ]
@@ -66,8 +66,8 @@ function delete {
      echo "The file is already empty"
  else
    read -p "Enter your contact name: " name 
-   result=$(grep "${name}" database.text)
-   lines=$(grep -r "${name}" database.text | wc -l)
+   result=$(grep -w "${name}" database.text)
+   lines=$(grep -r -w "${name}" database.text | wc -l)
    if [[ -z ${result} ]]
     then
       echo "This contact can not be found"
