@@ -1,0 +1,38 @@
+#! /bin/bash 
+
+modprobe snd-bcm2835
+
+#echo "17" >/sys/class/gpio/export
+#echo "in" >/sys/class/gpio/gpio17/direction
+#cat /sys/class/gpio/gpio17/value
+
+#pin 17 -> start button
+echo "17" >/sys/class/gpio/export
+echo "in" >/sys/class/gpio/gpio17/direction
+
+#pin 18 -> stop button
+echo "18" >/sys/class/gpio/export
+echo "in" >/sys/class/gpio/gpio18/direction
+
+#pin 23 -> next button
+echo "17" >/sys/class/gpio/export
+echo "in" >/sys/class/gpio/gpio23/direction
+
+#pin 24 -> pre button
+echo "17" >/sys/class/gpio/export
+echo "in" >/sys/class/gpio/gpio24/direction
+
+while:
+do
+  if($(/sys/class/gpio/gpio17/value) -eq 1)
+    then
+
+
+
+
+
+  fi
+
+
+
+done
