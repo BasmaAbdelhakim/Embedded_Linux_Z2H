@@ -1,2 +1,7 @@
 #!/bin/sh
 modprobe snd-bcm2835
+cd /myApplications
+chmod 777 hello.o
+chmod 777 sound_player.sh
+cp hello.o /bin
+
